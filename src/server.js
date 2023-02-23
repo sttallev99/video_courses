@@ -4,15 +4,11 @@ const path = require('path');
 
 const {databaseConfig} = require('./config/DBConfig.js');
 const hbsConfig = require('./config/hbsConfig.js');
-
+const routes = require('./routes.js'); 
 const app = express();
 app.use('/static', express.static(path.resolve(__dirname, 'public')));
 hbsConfig(app);
-
-app.get('/', (req, res) => {
-    res.render('home');
-    console.log(path.resolve(__dirname, './public'))
-});
+app.use(routes);
 
 databaseConfig()
     .then(() => console.log('DB CONNECTED!'))
