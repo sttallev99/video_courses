@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
@@ -9,6 +10,7 @@ const routes = require('./routes.js');
 
 
 const app = express();
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: true
 }))
