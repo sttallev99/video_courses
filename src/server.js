@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
@@ -5,7 +6,12 @@ const path = require('path');
 const {databaseConfig} = require('./config/DBConfig.js');
 const hbsConfig = require('./config/hbsConfig.js');
 const routes = require('./routes.js'); 
+
+
 const app = express();
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use('/static', express.static(path.resolve(__dirname, 'public')));
 hbsConfig(app);
 app.use(routes);
