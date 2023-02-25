@@ -9,29 +9,26 @@ const { signPromisify } = require('../utils/jwtUtils.js');
 const register = (username, password) => User.create({username, password});
 
 const login = async (username, password) => {
-    try{
+
         const user = await User.findOne({username});
 
-        if(user) {
+        console.log(user);
 
-            let payload = {
-                _id: user._id,
-                username: username
-            }
-
-            const token = await bcrypt.compare(password, user.password)
-                .then(() => {
-                    return signPromisify(payload, process.env.SECRET);
-                });
+        if(user) {     
+            const isValid = await bcrypt.compare(password, user.password);
             
-            return token
+            if(isValid) {
+                let payload = {
+                    _id: user._id,
+                    username: username
+                }
+                return await signPromisify(payload, process.env.SECRET);
+            } else {
+                throw new Error('Invalid username or password');
+            }
         } else {
-            return;
+            throw new Error('Invalid username or passwrd');
         }
-
-    }catch(err) {
-        console.log(err);
-    }
 }
 
 const authService = {

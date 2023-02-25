@@ -35,10 +35,13 @@ const postLogin = async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const token = authService.login(username, password);
-        res.redirect('/auth/login');
+        const token = await authService.login(username, password);
+    
+        res.cookie('authCookie', token, { httpOnly: true });
+        res.redirect('/');
     }catch(err) {
-        console.log(err)
+        console.log(err);
+        res.redirect('/auth/login');
     }
 }
 
