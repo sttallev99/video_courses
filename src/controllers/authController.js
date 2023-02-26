@@ -46,11 +46,17 @@ const postLogin = async (req, res) => {
     }
 }
 
+getLogout = (req, res) => {
+    res.clearCookie(process.env.AUTH_COOKIE_NAME);
+    res.redirect('/auth/login')
+}
+
 
 router.get('/register', getRegister);
 router.post('/register', postregister);
 router.get('/login', getLogin)
 router.post('/login', postLogin);
+router.get('/logout', getLogout);
 
 
 module.exports = router;
