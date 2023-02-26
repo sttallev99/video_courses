@@ -17,6 +17,10 @@ const courseSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    owner: {
+        type: String,
+        required: true
+    },
     enrolledUsers: [
         {
             type: mongoose.Schema.Types.ObjectId,
