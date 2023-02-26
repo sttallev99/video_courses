@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const authService = require('../services/authService.js');
 
@@ -18,7 +19,7 @@ const postregister = async (req, res) => {
     try {
         await authService.register(username, password);
         const token = await authService.login(username, password);
-        res.cookie('authCookie', token, { httpOnly: true })
+        res.cookie(process.env.AUTH_COOKIE_NAME, token, { httpOnly: true })
         res.redirect('/')
     } catch(err) {
         console.log(err);

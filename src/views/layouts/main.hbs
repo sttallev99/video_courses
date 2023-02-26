@@ -19,33 +19,33 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home </a>
                 </li>
+                {{#if user}}
+                    <!-- Logged users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Welcome, {{username}}</a>
+                    </li>
 
-                <!-- Logged users -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Welcome, {{username}}</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Create</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Profile</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Profile</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                {{else}}
+                    <!-- Guest users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Login</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
-
-                <!-- Guest users -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/auth/login">Login</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/auth/register">Register</a>
-                </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/register">Register</a>
+                    </li>
+                {{/if}}
             </ul>
         </nav>
                 <!-- In case of error, you should display section with class "notifications" -->

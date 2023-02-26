@@ -7,6 +7,7 @@ const path = require('path');
 const {databaseConfig} = require('./config/DBConfig.js');
 const hbsConfig = require('./config/hbsConfig.js');
 const routes = require('./routes.js'); 
+const { auth } = require('./middleware/authMiddleware.js');
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({
 }))
 app.use('/static', express.static(path.resolve(__dirname, 'public')));
 hbsConfig(app);
+app.use(auth)
 app.use(routes);
 
 databaseConfig()
