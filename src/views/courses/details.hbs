@@ -1,18 +1,18 @@
 
 <main>
     <div class="container">
-        <h1 class="my-4">Course title : Angular
+        <h1 class="my-4">Course title : {{title}}
         </h1>
 
         <div class="row">
 
             <div class="col-md-8">
-                <img class="img-fluid" src="https://colorlib.com/wp/wp-content/uploads/sites/2/angular-logo.png" alt="Express" />
+                <img class="img-fluid" src="{{imageUrl}}" alt="{{title}}" />
             </div>
 
             <div class="col-md-4 text-center">
                 <h3 class="my-3">Course Description</h3>
-                <p>Angular is a platform for building mobile</p>
+                <p>{{description}}</p>
 
 
                 <a class="btn btn-danger" href="#">Delete</a>

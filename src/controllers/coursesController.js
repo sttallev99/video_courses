@@ -12,7 +12,13 @@ const postCreateCourse = async (req, res) => {
     res.redirect('/')
 }
 
+getDetailsPage = async (req, res) => {
+    const course = await courseService.getCourse(req.params.courseId);
+    res.render('courses/details', {...course})
+}
+
 router.get('/create', getCreateCourse);
 router.post('/create', postCreateCourse);
+router.get('/:courseId', getDetailsPage);
 
 module.exports = router;

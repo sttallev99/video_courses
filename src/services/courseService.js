@@ -10,4 +10,6 @@ exports.createCourse = (title, description, imageUrl, isPublic) => {
     Course.create({title, description, imageUrl, isPublic});
 }
 
-exports.getAllPublicCourses = () => Course.find({ isPublic: true}).lean()
+exports.getAllPublicCourses = () => Course.find({ isPublic: true}).lean();
+
+exports.getCourse = (id) => Course.findOne({ _id: id }).lean();
