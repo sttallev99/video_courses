@@ -18,6 +18,18 @@ exports.addUser = (courseId, userId) => {
         {runValidators: true});
 }
 
+exports.editCourse = (courseId, newData) => {
+    if(newData.hasOwnProperty('isPublic')) {
+        newData.isPublic = true
+    } else {
+        newData.isPublic = false
+    }
+
+    console.log(newData)
+    
+    return Course.findByIdAndUpdate(courseId, newData);
+}
+
 exports.getAllPublicCourses = () => Course.find({ isPublic: true}).lean();
 
 exports.getCourse = (id) => Course.findOne({ _id: id }).lean();

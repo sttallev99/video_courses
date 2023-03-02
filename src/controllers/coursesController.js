@@ -38,11 +38,21 @@ getEditCourse = async (req, res) => {
     res.render('courses/edit', {course})
 }
 
+postEditCourse = async (req, res) => {
+    const courseId = req.params.courseId;
+    const newData = req.body;
+
+    await courseService.editCourse(courseId, newData);
+    
+    res.redirect(`/courses/${courseId}`);
+}
+
 
 router.get('/create', getCreateCourse);
 router.post('/create', postCreateCourse);
 router.get('/:courseId', getDetailsPage);
 router.get('/:courseId/enroll', enrollUser);
-router.get('/:courseId/edit', getEditCourse)
+router.get('/:courseId/edit', getEditCourse);
+router.post('/:courseId/edit', postEditCourse);
 
 module.exports = router;
