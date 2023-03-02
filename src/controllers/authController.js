@@ -38,7 +38,7 @@ const postLogin = async (req, res) => {
     try {
         const token = await authService.login(username, password);
     
-        res.cookie('authCookie', token, { httpOnly: true });
+        res.cookie(process.env.AUTH_COOKIE_NAME, token, { httpOnly: true })
         res.redirect('/');
     }catch(err) {
         console.log(err);
