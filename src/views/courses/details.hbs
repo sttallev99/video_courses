@@ -16,7 +16,7 @@
                 {{#if user}}
                     {{#if isOwner}}
                         <a class="btn btn-danger" href="#">Delete</a>
-                        <a class="btn btn-warning" href="#">Edit</a>
+                        <a class="btn btn-warning" href="/courses/{{course._id}}/edit">Edit</a>
                     {{else if isLogged}}
                         <span class="enrolled-span">You are already enrolled</span>
                     {{else}}

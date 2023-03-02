@@ -10,6 +10,7 @@ const postCreateCourse = async (req, res) => {
     let { title, description, imageUrl, isPublic } = req.body;
     const owner = req.user._id;
     await courseService.createCourse(title, description, imageUrl, isPublic, owner);
+
     res.redirect('/')
 }
 
@@ -27,13 +28,21 @@ enrollUser = async (req, res) => {
     const courseId = req.params.courseId;
     const userId = req.user._id;
     await courseService.addUser(courseId, userId);
+
     res.redirect(`/courses/${courseId}`);
+}
+
+getEditCourse = async (req, res) => {
+    const course = await courseService.getCourse(req.params.courseId);
+
+    res.render('courses/edit', {course})
 }
 
 
 router.get('/create', getCreateCourse);
 router.post('/create', postCreateCourse);
 router.get('/:courseId', getDetailsPage);
-router.get('/:courseId/enroll', enrollUser)
+router.get('/:courseId/enroll', enrollUser);
+router.get('/:courseId/edit', getEditCourse)
 
 module.exports = router;
