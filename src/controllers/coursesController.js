@@ -16,10 +16,11 @@ const postCreateCourse = async (req, res) => {
 getDetailsPage = async (req, res) => {
 
     const course = await courseService.getCourse(req.params.courseId);
-    isOwner = req.user._id == course.owner;
-    isLogged = course.enrolledUsers.some(x => x._id == req.user._id);
-    
-    res.render('courses/details', {course, isOwner, isLogged})
+    isOwner = req.user?._id == course.owner;
+    isLogged = course.enrolledUsers.some(x => x._id == req.user?._id);
+    const user = req.user;
+
+    res.render('courses/details', {course, isOwner, isLogged, user})
 }
 
 enrollUser = async (req, res) => {
