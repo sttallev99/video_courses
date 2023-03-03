@@ -51,11 +51,19 @@ getLogout = (req, res) => {
     res.redirect('/auth/login')
 }
 
+function isLoggin(req, res, next) {
+    if(req.user) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+}
 
-router.get('/register', getRegister);
-router.post('/register', postregister);
-router.get('/login', getLogin)
-router.post('/login', postLogin);
+
+router.get('/register', isLoggin, getRegister);
+router.post('/register', isLoggin, postregister);
+router.get('/login', isLoggin, getLogin)
+router.post('/login', isLoggin, postLogin);
 router.get('/logout', getLogout);
 
 

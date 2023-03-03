@@ -47,12 +47,27 @@ postEditCourse = async (req, res) => {
     res.redirect(`/courses/${courseId}`);
 }
 
+getDeleteCourse = async (req, res) => {
+    await courseService.deleteCourse(req.params.courseId);
+    
+    res.redirect('/');
+}
 
-router.get('/create', getCreateCourse);
-router.post('/create', postCreateCourse);
+function isNotLogin(req, res, next) {
+    if(!req.user) {
+        res.redirect('/auth/login');
+    }else {
+        next();
+    }
+}
+
+
+router.get('/create',isNotLogin, getCreateCourse);
+router.post('/create',isNotLogin, postCreateCourse);
 router.get('/:courseId', getDetailsPage);
-router.get('/:courseId/enroll', enrollUser);
-router.get('/:courseId/edit', getEditCourse);
-router.post('/:courseId/edit', postEditCourse);
+router.get('/:courseId/enroll',isNotLogin, enrollUser);
+router.get('/:courseId/edit',isNotLogin, getEditCourse);
+router.post('/:courseId/edit',isNotLogin, postEditCourse);
+router.get('/:courseId/delete',isNotLogin, getDeleteCourse)
 
 module.exports = router;

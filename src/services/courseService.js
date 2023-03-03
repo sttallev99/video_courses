@@ -24,11 +24,11 @@ exports.editCourse = (courseId, newData) => {
     } else {
         newData.isPublic = false
     }
-
-    console.log(newData)
     
     return Course.findByIdAndUpdate(courseId, newData);
 }
+
+exports.deleteCourse = (id) => Course.findByIdAndDelete(id);
 
 exports.getAllPublicCourses = () => Course.find({ isPublic: true}).lean();
 
