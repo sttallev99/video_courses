@@ -61,13 +61,23 @@ function isNotLogin(req, res, next) {
     }
 }
 
+async function isCreator(req, res, next) {
+    const course = await  courseService.getCourse(req.params.courseId);
+
+    if(req.user._id == course.owner) {
+        next()
+    } else {
+        res.redirect(`/courses/${req.params.courseId}`)
+    }
+}
+
 
 router.get('/create',isNotLogin, getCreateCourse);
 router.post('/create',isNotLogin, postCreateCourse);
 router.get('/:courseId', getDetailsPage);
 router.get('/:courseId/enroll',isNotLogin, enrollUser);
-router.get('/:courseId/edit',isNotLogin, getEditCourse);
-router.post('/:courseId/edit',isNotLogin, postEditCourse);
-router.get('/:courseId/delete',isNotLogin, getDeleteCourse)
+router.get('/:courseId/edit',isNotLogin, isCreator, getEditCourse);
+router.post('/:courseId/edit',isNotLogin, isCreator, postEditCourse);
+router.get('/:courseId/delete',isNotLogin, isCreator, getDeleteCourse)
 
 module.exports = router;
