@@ -8,24 +8,28 @@ const getRegister = (req, res) => {
     res.render('auth/register');
 }
 
-const postregister = async (req, res) => {
+const postregister = async (req, res, next) => {
     let { username, password, repeatPassword } = req.body;
-
-    if(password != repeatPassword) {
-        res.send('Passwords missmatch');
-        res.end();
-    }
-
+    // try {
+    // } catch(err) {
+    //     res.status(425);
+    //     res.render('auth/register', { error: err.message });
+    // }
+    
     try {
+        if(password != repeatPassword) {
+            throw new Error('Password missmatch!');
+        }
+        
         await authService.register(username, password);
         const token = await authService.login(username, password);
         res.cookie(process.env.AUTH_COOKIE_NAME, token, { httpOnly: true })
         res.redirect('/')
     } catch(err) {
-        console.log(err);
-        res.end();
+        const error = getErrorMessage(err);
+
+        res.render('auth/register', { error });
     }
-    res.end();
 }
 
 const getLogin = (req, res) => {
@@ -57,6 +61,19 @@ function isLoggin(req, res, next) {
     } else {
         next();
     }
+}
+
+function getErrorMessage(err) {
+    if(err.message != 'Password missmatch!') {
+        let errorNames = Object.keys(err.errors);
+        return err.errors[errorNames[0]].properties.message;
+    } else {
+        return err.message
+    }
+    // if(Object.keys(err.errors) === undefined) {
+    //     return err.message
+    // } else {
+    // }
 }
 
 

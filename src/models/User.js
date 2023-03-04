@@ -6,10 +6,24 @@ const saltRound = 10;
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        validate: {
+            validator:  function(v) {
+                return /[a-zA-Z1-9]+/g.test(v);
+            },
+            message: props => `${props.value} is not valid username!`
+        },
+        minLength: [5, 'Username must me equal or longer than 5 characters!'],
+        required: [true, 'Username required']
     },
     password: {
         type: String,
+        validate: {
+            validator:  function(v) {
+                return /[a-zA-Z1-9]+/g.test(v);
+            },
+            message: props => `${props.value} is not valid password!`
+        },
+        minLength: [5, 'Password must be equal or longer than 5 characters!'],
         required: true
     }
 });

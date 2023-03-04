@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link href="./static/css/site.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/site.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
@@ -48,12 +48,11 @@
                 {{/if}}
             </ul>
         </nav>
-                <!-- In case of error, you should display section with class "notifications" -->
-        <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
-        <!--
-        <section class="notifications">
-            <p class="notification-message">Message...</p>
-        </section>-->
+        {{#if error}}
+            <section class="notifications">
+                <p class="notification-message">{{error}}</p>
+            </section>
+        {{/if}}
         {{{body}}}
         <footer class="page-footer font-small">
             <div class="footer-copyright text-center py-3">© 2021
